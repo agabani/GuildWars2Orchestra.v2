@@ -40,6 +40,11 @@ namespace cli
 
         public double FrequencyFromToken(Token token)
         {
+            if (token.Tone.IsRest)
+            {
+                return 0;
+            }
+
             var gap = SemiTonesBetween(new Tone {Note = Note.C, Octave = Octave.Zeroth}, token.Tone);
 
             return 16.35*Math.Pow(Math.Pow(2, (double) 1/12), gap);
@@ -89,6 +94,7 @@ namespace cli
 
     internal class Tone
     {
+        public bool IsRest { get; set; }
         public Note Note { get; set; }
         public Octave Octave { get; set; }
     }
