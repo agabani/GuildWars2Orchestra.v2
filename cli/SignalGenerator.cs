@@ -15,15 +15,15 @@ namespace cli
 
             for (var i = 0; i < numberOfSamples; i++)
             {
-                samples[i] = ToAmplitute(i, frequency);
+                samples[i] = ToAmplitute(i, frequency, 0.8*Math.Pow(Math.E, -1*i/SampleRate));
             }
 
             return samples;
         }
 
-        private short ToAmplitute(long sample, double frequency)
+        private short ToAmplitute(long sample, double frequency, double decay)
         {
-            return (short) (Math.Sin(sample*2*Math.PI*frequency/SampleRate)*_sixteenBitSampleLimit*0.8);
+            return (short) (Math.Sin(sample*2*Math.PI*frequency/SampleRate)*_sixteenBitSampleLimit*decay);
         }
     }
 }
