@@ -4,8 +4,23 @@ namespace cli
 {
     internal class Assembler
     {
-        private const double Bpm = 120;
-        private const double SecondsPerBeat = 60/Bpm;
+        private readonly double _bpm;
+        private readonly double _secondsPerBeat;
+
+        public Assembler(double bpm)
+        {
+            _bpm = bpm;
+            _secondsPerBeat = 60 / bpm;
+        }
+
+        public TokenAudio FromToken(Token token)
+        {
+            return new TokenAudio
+            {
+                Duration = DurationFromToken(token),
+                Frequency = FrequencyFromToken(token)
+            };
+        }
 
         public TimeSpan DurationFromToken(Token token)
         {
@@ -14,22 +29,22 @@ namespace cli
             switch (token.Length.Fraction)
             {
                 case Fraction.Full:
-                    duration = 4*1000*SecondsPerBeat;
+                    duration = 4*1000*_secondsPerBeat;
                     break;
                 case Fraction.Half:
-                    duration = 2*1000*SecondsPerBeat;
+                    duration = 2*1000*_secondsPerBeat;
                     break;
                 case Fraction.Quater:
-                    duration = 1*1000*SecondsPerBeat;
+                    duration = 1*1000*_secondsPerBeat;
                     break;
                 case Fraction.Eighth:
-                    duration = .5*1000*SecondsPerBeat;
+                    duration = .5*1000*_secondsPerBeat;
                     break;
                 case Fraction.Sixteenth:
-                    duration = .25*1000*SecondsPerBeat;
+                    duration = .25*1000*_secondsPerBeat;
                     break;
                 case Fraction.Thirtyseconth:
-                    duration = .125*1000*SecondsPerBeat;
+                    duration = .125*1000*_secondsPerBeat;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -61,7 +76,7 @@ namespace cli
 
             var noteIndex = Array.IndexOf(noteSequence, tone.Note);
 
-            return noteIndex + (OctiveNumeric(tone.Octave) )*12;
+            return noteIndex + OctiveNumeric(tone.Octave)*12;
         }
 
         public int OctiveNumeric(Octave octave)
@@ -103,6 +118,12 @@ namespace cli
     {
         public Length Length { get; set; }
         public Tone Tone { get; set; }
+    }
+
+    internal class TokenAudio
+    {
+        public TimeSpan Duration { get; set; }
+        public double Frequency { get; set; }
     }
 
     internal class Length

@@ -9,7 +9,7 @@ namespace cli
 
         public short[] GenerateSamples(long milliseconds, double frequency)
         {
-            var numberOfSamples = (long) (milliseconds/1000*SampleRate);
+            var numberOfSamples = (long) (milliseconds/1000.0*SampleRate);
 
             var samples = new short[numberOfSamples];
 
