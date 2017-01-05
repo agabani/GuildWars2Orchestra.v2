@@ -17,8 +17,8 @@
                 },
                 Tone = new Tone
                 {
-                    Note = Note.A,
-                    Octave = Octave.Two
+                    Note = Note.C,
+                    Octave = Octave.Third
                 }
             };
 

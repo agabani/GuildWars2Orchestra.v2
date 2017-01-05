@@ -40,9 +40,9 @@ namespace cli
 
         public double FrequencyFromToken(Token token)
         {
-            var gap = SemiTonesBetween(new Tone {Note = Note.A, Octave = Octave.One}, token.Tone);
+            var gap = SemiTonesBetween(new Tone {Note = Note.C, Octave = Octave.Zeroth}, token.Tone);
 
-            return 220*Math.Pow(Math.Pow(2, (double) 1/12), gap);
+            return 16.35*Math.Pow(Math.Pow(2, (double) 1/12), gap);
         }
 
         public int SemiTonesBetween(Tone lower, Tone upper)
@@ -52,23 +52,35 @@ namespace cli
 
         public int OverAllIndex(Tone tone)
         {
-            var noteSequence = new[] {Note.A, Note.ASharp, Note.B, Note.C, Note.CSharp, Note.D, Note.DSharp, Note.E, Note.F, Note.FSharp, Note.G, Note.GSharp};
+            var noteSequence = new[] {Note.C, Note.CSharp, Note.D, Note.DSharp, Note.E, Note.F, Note.FSharp, Note.G, Note.GSharp, Note.A, Note.ASharp, Note.B};
 
             var noteIndex = Array.IndexOf(noteSequence, tone.Note);
 
-            return noteIndex + (OctiveNumeric(tone.Octave) - 1)*12;
+            return noteIndex + (OctiveNumeric(tone.Octave) )*12;
         }
 
         public int OctiveNumeric(Octave octave)
         {
             switch (octave)
             {
-                case Octave.One:
+                case Octave.Zeroth:
+                    return 0;
+                case Octave.First:
                     return 1;
-                case Octave.Two:
+                case Octave.Second:
                     return 2;
-                case Octave.Three:
+                case Octave.Third:
                     return 3;
+                case Octave.Fourth:
+                    return 4;
+                case Octave.Fifth:
+                    return 5;
+                case Octave.Sixth:
+                    return 6;
+                case Octave.Seventh:
+                    return 7;
+                case Octave.Eighth:
+                    return 8;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(octave), octave, null);
             }
@@ -121,8 +133,14 @@ namespace cli
 
     public enum Octave
     {
-        One,
-        Two,
-        Three
+        Zeroth,
+        First,
+        Second,
+        Third,
+        Fourth,
+        Fifth,
+        Sixth,
+        Seventh,
+        Eighth
     }
 }
