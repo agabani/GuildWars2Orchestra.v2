@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using cli.models;
 
 namespace cli
 {
@@ -7,12 +8,9 @@ namespace cli
     {
         private static void Main(string[] args)
         {
-            var signalGenerator = new SignalGenerator();
-            var wavePacker = new WavePacker();
-            var assembler = new Assembler(200);
-
             var length = new Length {Extended = false, Fraction = Fraction.Quater};
-            var tokens = new List<Token>()
+
+            var tokens = new List<Token>
             {
                 new Token {Length = length, Tone = new Tone {IsRest = false, Note = Note.C, Octave = Octave.Third}},
                 new Token {Length = length, Tone = new Tone {IsRest = false, Note = Note.D, Octave = Octave.Third}},
@@ -45,17 +43,23 @@ namespace cli
                 new Token {Length = length, Tone = new Tone {IsRest = false, Note = Note.A, Octave = Octave.Third}},
                 new Token {Length = length, Tone = new Tone {IsRest = false, Note = Note.E, Octave = Octave.Third}},
                 new Token {Length = length, Tone = new Tone {IsRest = false, Note = Note.C, Octave = Octave.Third}},
-                new Token {Length = length, Tone = new Tone {IsRest = false, Note = Note.B, Octave = Octave.Second}},
+                new Token {Length = length, Tone = new Tone {IsRest = false, Note = Note.B, Octave = Octave.Second}}
             };
 
-            var x = tokens
-                .Select(t => assembler.FromToken(t))
-                .Select(a => signalGenerator.GenerateSamples((long) a.Duration.TotalMilliseconds, a.Frequency))
-                .SelectMany(s => s)
+            var assembler = new AudioTokenConvertor(200);
+            var signalGenerator = new SignalGenerator();
+            var wavePacker = new WavePacker();
+
+            var audioSamples = tokens
+                .Select(token => assembler.Convert(token))
+                .Select(audioToken => signalGenerator.GenerateSamples((long) audioToken.Duration.TotalMilliseconds, audioToken.Frequency))
+                .SelectMany(audioTokenSamples => audioTokenSamples)
                 .ToArray();
 
-            var memoryStream = wavePacker.Pack(x);
-            wavePacker.Write("text.wav", memoryStream);
+            using (var memoryStream = wavePacker.Pack(audioSamples))
+            {
+                wavePacker.Write("text.wav", memoryStream);
+            }
         }
     }
 }

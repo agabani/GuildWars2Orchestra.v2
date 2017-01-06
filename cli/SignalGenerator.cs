@@ -15,7 +15,7 @@ namespace cli
 
             for (var i = 0; i < numberOfSamples; i++)
             {
-                samples[i] = ToAmplitute(i, frequency, 0.8*Math.Pow(Math.E, -1*i/SampleRate));
+                samples[i] = ToAmplitute(i, frequency, 0.8);
             }
 
             return samples;
