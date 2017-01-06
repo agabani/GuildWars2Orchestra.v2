@@ -1,12 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using cli.models;
+using midi;
 
 namespace cli
 {
     internal class Program
     {
         private static void Main(string[] args)
+        {
+            Midi();
+            //Generate();
+        }
+
+        private static void Midi()
+        {
+            new Class().Run();
+        }
+
+        private static void Generate()
         {
             var length = new Length {Extended = false, Fraction = Fraction.Quater};
 
