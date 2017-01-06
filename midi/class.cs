@@ -8,7 +8,7 @@ namespace midi
 {
     public class Class
     {
-        public void Run()
+        public Sheet Run()
         {
             var midiFile = new MidiFile("prelude.mid");
 
@@ -17,6 +17,12 @@ namespace midi
             var timeSignature = TimeSignature(midiFile.Events);
 
             var notes = Notes(midiFile.Events, tempo).ToList();
+
+            return new Sheet
+            {
+                Tempo = tempo,
+                Tokens = notes.ToArray()
+            };
         }
 
         private static double Tempo(MidiEventCollection midiEventCollection)
@@ -39,7 +45,7 @@ namespace midi
                 .Last().TimeSignature;
         }
 
-        private static IEnumerable<Tone> Notes(MidiEventCollection midiEventCollection, double tempo)
+        private static IEnumerable<Token> Notes(MidiEventCollection midiEventCollection, double tempo)
         {
             return midiEventCollection
                 .SelectMany(@event => @event)
@@ -48,7 +54,7 @@ namespace midi
                 .Select(@event => Convert(@event, tempo));
         }
 
-        private static Tone Convert(NoteOnEvent @event, double tempo)
+        private static Token Convert(NoteOnEvent @event, double tempo)
         {
             Note note;
             Octave octave;
@@ -135,12 +141,18 @@ namespace midi
             }
 
             var noteLength = @event.NoteLength;
-            var fraction = noteLength/1000.0*tempo/60;
 
-            return new Tone
+            return new Token
             {
-                Note = note,
-                Octave = octave
+                Length = new Length
+                {
+                    Fraction = new Fraction(noteLength/1000.0*tempo/60/4, 1)
+                },
+                Tone = new Tone
+                {
+                    Note = note,
+                    Octave = octave
+                }
             };
         }
     }

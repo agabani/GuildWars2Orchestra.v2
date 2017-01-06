@@ -10,13 +10,28 @@ namespace cli
     {
         private static void Main(string[] args)
         {
-            //Midi();
-            Generate();
+            Midi();
+            //Generate();
         }
 
         private static void Midi()
         {
-            new Class().Run();
+            var sheet = new Class().Run();
+
+            var assembler = new AudioTokenConvertor(sheet.Tempo);
+            var signalGenerator = new SignalGenerator();
+            var wavePacker = new WavePacker();
+
+            var audioSamples = sheet.Tokens
+                .Select(token => assembler.Convert(token))
+                .Select(audioToken => signalGenerator.GenerateSamples((long)audioToken.Duration.TotalMilliseconds, audioToken.Frequency))
+                .SelectMany(audioTokenSamples => audioTokenSamples)
+                .ToArray();
+
+            using (var memoryStream = wavePacker.Pack(audioSamples))
+            {
+                wavePacker.Write("midi.wav", memoryStream);
+            }
         }
 
         private static void Generate()

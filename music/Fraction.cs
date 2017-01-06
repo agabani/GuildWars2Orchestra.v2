@@ -45,5 +45,10 @@ namespace music
                 return (Numerator.GetHashCode()*397) ^ Denominator.GetHashCode();
             }
         }
+
+        public override string ToString()
+        {
+            return $"{(double)this}";
+        }
     }
 }
