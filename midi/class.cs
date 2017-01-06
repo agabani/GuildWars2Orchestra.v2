@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using music;
 using NAudio.Midi;
 
 namespace midi
@@ -14,7 +16,7 @@ namespace midi
 
             var timeSignature = TimeSignature(midiFile.Events);
 
-            var notes = Notes(midiFile.Events);
+            var notes = Notes(midiFile.Events, tempo).ToList();
         }
 
         private static double Tempo(MidiEventCollection midiEventCollection)
@@ -37,12 +39,109 @@ namespace midi
                 .Last().TimeSignature;
         }
 
-        private static IEnumerable<NoteOnEvent> Notes(MidiEventCollection midiEventCollection)
+        private static IEnumerable<Tone> Notes(MidiEventCollection midiEventCollection, double tempo)
         {
             return midiEventCollection
                 .SelectMany(@event => @event)
                 .OfType<NoteOnEvent>()
-                .Where(@event => @event.Velocity > 0);
+                .Where(@event => @event.Velocity > 0)
+                .Select(@event => Convert(@event, tempo));
+        }
+
+        private static Tone Convert(NoteOnEvent @event, double tempo)
+        {
+            Note note;
+            Octave octave;
+
+            switch (@event.NoteNumber%12)
+            {
+                case 0:
+                    note = Note.C;
+                    break;
+                case 1:
+                    note = Note.CSharp;
+                    break;
+                case 2:
+                    note = Note.D;
+                    break;
+                case 3:
+                    note = Note.DSharp;
+                    break;
+                case 4:
+                    note = Note.E;
+                    break;
+                case 5:
+                    note = Note.F;
+                    break;
+                case 6:
+                    note = Note.FSharp;
+                    break;
+                case 7:
+                    note = Note.G;
+                    break;
+                case 8:
+                    note = Note.GSharp;
+                    break;
+                case 9:
+                    note = Note.A;
+                    break;
+                case 10:
+                    note = Note.ASharp;
+                    break;
+                case 11:
+                    note = Note.B;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            switch (@event.NoteNumber/12)
+            {
+                case 0:
+                    octave = Octave.Zeroth;
+                    break;
+                case 1:
+                    octave = Octave.First;
+                    break;
+                case 2:
+                    octave = Octave.Second;
+                    break;
+                case 3:
+                    octave = Octave.Third;
+                    break;
+                case 4:
+                    octave = Octave.Fourth;
+                    break;
+                case 5:
+                    octave = Octave.Fifth;
+                    break;
+                case 6:
+                    octave = Octave.Sixth;
+                    break;
+                case 7:
+                    octave = Octave.Seventh;
+                    break;
+                case 8:
+                    octave = Octave.Eighth;
+                    break;
+                case 9:
+                    octave = Octave.Ninth;
+                    break;
+                case 10:
+                    octave = Octave.Tenth;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            var noteLength = @event.NoteLength;
+            var fraction = noteLength/1000.0*tempo/60;
+
+            return new Tone
+            {
+                Note = note,
+                Octave = octave
+            };
         }
     }
 }

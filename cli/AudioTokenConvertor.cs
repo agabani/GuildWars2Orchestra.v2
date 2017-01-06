@@ -29,32 +29,7 @@ namespace cli
 
         private TimeSpan Duration(Token token)
         {
-            double duration;
-
-            switch (token.Length.Fraction)
-            {
-                case Fraction.Full:
-                    duration = 4*1000*_secondsPerBeat;
-                    break;
-                case Fraction.Half:
-                    duration = 2*1000*_secondsPerBeat;
-                    break;
-                case Fraction.Quater:
-                    duration = 1*1000*_secondsPerBeat;
-                    break;
-                case Fraction.Eighth:
-                    duration = .5*1000*_secondsPerBeat;
-                    break;
-                case Fraction.Sixteenth:
-                    duration = .25*1000*_secondsPerBeat;
-                    break;
-                case Fraction.Thirtyseconth:
-                    duration = .125*1000*_secondsPerBeat;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
+            var duration = token.Length.Fraction*4*1000*_secondsPerBeat;
             return token.Length.Extended ? TimeSpan.FromMilliseconds(duration*1.5) : TimeSpan.FromMilliseconds(duration);
         }
 
@@ -102,6 +77,10 @@ namespace cli
                     return 7;
                 case Octave.Eighth:
                     return 8;
+                case Octave.Ninth:
+                    return 9;
+                case Octave.Tenth:
+                    return 10;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(octave), octave, null);
             }

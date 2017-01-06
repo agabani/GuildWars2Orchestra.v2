@@ -10,8 +10,8 @@ namespace cli
     {
         private static void Main(string[] args)
         {
-            Midi();
-            //Generate();
+            //Midi();
+            Generate();
         }
 
         private static void Midi()
