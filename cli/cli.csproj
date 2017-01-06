@@ -37,16 +37,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AudioTokenConvertor.cs" />
-    <Compile Include="models\Fraction.cs" />
-    <Compile Include="models\Length.cs" />
-    <Compile Include="models\Note.cs" />
-    <Compile Include="models\Octave.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SignalGenerator.cs" />
-    <Compile Include="models\Token.cs" />
     <Compile Include="models\AudioToken.cs" />
-    <Compile Include="models\Tone.cs" />
     <Compile Include="WavePacker.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +55,10 @@
     <ProjectReference Include="..\midi\midi.csproj">
       <Project>{c38d76f1-aa88-47c0-a529-be6b053107d2}</Project>
       <Name>midi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\music\music.csproj">
+      <Project>{42267aa0-9861-4c3c-a928-db9cff98ea56}</Project>
+      <Name>music</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

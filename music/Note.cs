@@ -1,4 +1,4 @@
-namespace cli.models
+namespace music
 {
     public enum Note
     {

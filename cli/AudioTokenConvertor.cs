@@ -1,9 +1,10 @@
 ﻿using System;
 using cli.models;
+using music;
 
 namespace cli
 {
-    internal class AudioTokenConvertor
+    public class AudioTokenConvertor
     {
         private const double Frequency0 = 16.35;
         private static readonly Tone Note0 = new Tone {Note = Note.C, Octave = Octave.Zeroth};

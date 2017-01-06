@@ -1,6 +1,6 @@
-﻿namespace cli.models
+﻿namespace music
 {
-    internal class Tone
+    public class Tone
     {
         public bool IsRest { get; set; }
         public Note Note { get; set; }

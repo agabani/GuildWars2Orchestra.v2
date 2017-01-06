@@ -1,6 +1,6 @@
-﻿namespace cli.models
+﻿namespace music
 {
-    internal class Length
+    public class Length
     {
         public Fraction Fraction { get; set; }
         public bool Extended { get; set; }

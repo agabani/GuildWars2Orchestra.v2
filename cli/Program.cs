@@ -2,6 +2,7 @@
 using System.Linq;
 using cli.models;
 using midi;
+using music;
 
 namespace cli
 {
