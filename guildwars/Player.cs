@@ -5,14 +5,14 @@ namespace guildwars
 {
     public class Player
     {
-        private readonly Keyboard _keyboard;
+        private readonly Controller _controller;
         private readonly EventQueue _queue;
         private readonly Thread _thread;
 
-        public Player(EventQueue queue, Keyboard keyboard)
+        public Player(EventQueue queue, Controller controller)
         {
             _queue = queue;
-            _keyboard = keyboard;
+            _controller = controller;
             _thread = new Thread(Loop)
             {
                 Priority = ThreadPriority.Highest
@@ -41,7 +41,7 @@ namespace guildwars
 
         private void PlayToken(Token token)
         {
-            _keyboard.Play(token.Tone);
+            _controller.Play(token.Tone);
         }
     }
 }

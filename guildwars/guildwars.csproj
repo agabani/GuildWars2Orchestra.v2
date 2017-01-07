@@ -35,7 +35,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventQueue.cs" />
+    <Compile Include="Extern\HardwareInput.cs" />
+    <Compile Include="Extern\Input.cs" />
+    <Compile Include="Extern\InputType.cs" />
+    <Compile Include="Extern\InputUnion.cs" />
+    <Compile Include="Extern\KeybdInput.cs" />
+    <Compile Include="Extern\KeyEventF.cs" />
+    <Compile Include="Extern\MouseEventF.cs" />
+    <Compile Include="Extern\MouseInput.cs" />
+    <Compile Include="Extern\PInvoke.cs" />
+    <Compile Include="Extern\ScanCodeShort.cs" />
+    <Compile Include="Extern\VirtualKeyShort.cs" />
     <Compile Include="Jukebox.cs" />
+    <Compile Include="Controller.cs" />
     <Compile Include="Keyboard.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

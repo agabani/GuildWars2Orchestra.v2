@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using guildwars;
 using midi;
 using music;
 
@@ -9,8 +10,18 @@ namespace cli
     {
         private static void Main(string[] args)
         {
-            Midi();
+            Guildwars();
+            //Midi();
             //Generate();
+        }
+
+        private static void Guildwars()
+        {
+            var eventQueue = new EventQueue();
+
+            var player = new Player(eventQueue, new Controller(new Keyboard()));
+
+            player.Start();
         }
 
         private static void Midi()

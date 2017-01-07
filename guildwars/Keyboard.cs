@@ -1,112 +1,92 @@
 ﻿using System;
-using music;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using guildwars.Extern;
 
 namespace guildwars
 {
     public class Keyboard
     {
-        private Octave _octave = Octave.Fourth;
-
-        public void Play(Tone tone)
+        private static readonly Dictionary<int, ScanCodeShort> ScanCodeShorts = new Dictionary<int, ScanCodeShort>
         {
-            while (_octave != tone.Octave)
+            {1, ScanCodeShort.KEY_1},
+            {2, ScanCodeShort.KEY_2},
+            {3, ScanCodeShort.KEY_3},
+            {4, ScanCodeShort.KEY_4},
+            {5, ScanCodeShort.KEY_5},
+            {6, ScanCodeShort.KEY_6},
+            {7, ScanCodeShort.KEY_7},
+            {8, ScanCodeShort.KEY_8},
+            {9, ScanCodeShort.KEY_9},
+            {0, ScanCodeShort.KEY_0}
+        };
+
+        private static readonly Dictionary<int, VirtualKeyShort> VirtualKeyShorts = new Dictionary<int, VirtualKeyShort>
+        {
+            {1, VirtualKeyShort.KEY_1},
+            {2, VirtualKeyShort.KEY_2},
+            {3, VirtualKeyShort.KEY_3},
+            {4, VirtualKeyShort.KEY_4},
+            {5, VirtualKeyShort.KEY_5},
+            {6, VirtualKeyShort.KEY_6},
+            {7, VirtualKeyShort.KEY_7},
+            {8, VirtualKeyShort.KEY_8},
+            {9, VirtualKeyShort.KEY_9},
+            {0, VirtualKeyShort.KEY_0}
+        };
+
+        public Keyboard()
+        {
+            var mainWindowHandle = Process.GetProcesses()
+                .First(
+                    p => p.ProcessName.Equals("GW2-64", StringComparison.OrdinalIgnoreCase) ||
+                         p.ProcessName.Equals("GW2", StringComparison.OrdinalIgnoreCase)).MainWindowHandle;
+
+            PInvoke.SetForegroundWindow(mainWindowHandle);
+        }
+
+        public void Press(int key)
+        {
+            var nInputs = new[]
             {
-                if (OctaveId(_octave) < OctaveId(tone.Octave))
+                new Input
                 {
-                    Press(0);
-                    IncreaseOctave();
+                    type = InputType.KEYBOARD,
+                    U = new InputUnion
+                    {
+                        ki = new KeybdInput
+                        {
+                            wScan = ScanCodeShorts[key],
+                            wVk = VirtualKeyShorts[key]
+                        }
+                    }
                 }
-                else if (OctaveId(_octave) > OctaveId(tone.Octave))
+            };
+
+            PInvoke.SendInput((uint) nInputs.Length, nInputs, Input.Size);
+        }
+
+        public void Release(int key)
+        {
+            var nInputs = new[]
+            {
+                new Input
                 {
-                    Press(9);
-                    DecreaseOctave();
+                    type = InputType.KEYBOARD,
+                    U = new InputUnion
+                    {
+                        ki = new KeybdInput
+                        {
+                            wScan = ScanCodeShorts[key],
+                            wVk = VirtualKeyShorts[key],
+                            dwFlags = KeyEventF.KEYUP
+                        }
+                    }
                 }
-            }
+            };
 
-            Press(Key(tone));
-        }
-
-        private void IncreaseOctave()
-        {
-            if (_octave == Octave.Third)
-            {
-                _octave = Octave.Fourth;
-            }
-            else if (_octave == Octave.Fourth)
-            {
-                _octave = Octave.Fifth;
-            }
-        }
-
-        private void DecreaseOctave()
-        {
-            if (_octave == Octave.Fifth)
-            {
-                _octave = Octave.Fourth;
-            }
-            else if (_octave == Octave.Fourth)
-            {
-                _octave = Octave.Third;
-            }
-        }
-
-        private int OctaveId(Octave octave)
-        {
-            switch (octave)
-            {
-                case Octave.Third:
-                    return 3;
-                case Octave.Fourth:
-                    return 4;
-                case Octave.Fifth:
-                    return 5;
-                case Octave.Sixth:
-                    return 6;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(octave), octave, null);
-            }
-        }
-
-        private int Key(Tone tone)
-        {
-            if (tone.Note == Note.C && tone.Octave == Octave.Sixth)
-            {
-                return 8;
-            }
-
-            switch (tone.Note)
-            {
-                case Note.C:
-                    return 1;
-                case Note.CSharp:
-                    return 2;
-                case Note.D:
-                    return 2;
-                case Note.DSharp:
-                    return 3;
-                case Note.E:
-                    return 3;
-                case Note.F:
-                    return 4;
-                case Note.FSharp:
-                    return 5;
-                case Note.G:
-                    return 5;
-                case Note.GSharp:
-                    return 6;
-                case Note.A:
-                    return 6;
-                case Note.ASharp:
-                    return 7;
-                case Note.B:
-                    return 7;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
-        private void Press(int key)
-        {
+            PInvoke.SendInput((uint)nInputs.Length, nInputs, Input.Size);
         }
     }
 }
