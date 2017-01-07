@@ -9,7 +9,7 @@ namespace midi
     {
         public Sheet Run()
         {
-            var midiFile = new MidiFile("prelude.mid");
+            var midiFile = new MidiFile("Stand By Me.mid");
 
             var tempo = Tempo(midiFile.Events);
 
