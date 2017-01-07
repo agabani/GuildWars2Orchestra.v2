@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using music;
 
 namespace guildwars
@@ -7,7 +8,7 @@ namespace guildwars
     {
         private readonly Keyboard _keyboard;
 
-        private Octave _octave = Octave.Fourth;
+        private Octave _octave = Octave.Fifth;
 
         public Controller(Keyboard keyboard)
         {
@@ -18,14 +19,12 @@ namespace guildwars
         {
             while (_octave != tone.Octave)
             {
-                if (OctaveId(_octave) < OctaveId(tone.Octave))
+                if (IsIncreaseOctaveRequired(tone))
                 {
-                    Press(0);
                     IncreaseOctave();
                 }
-                else if (OctaveId(_octave) > OctaveId(tone.Octave))
+                else if (IsDecreaseOctaveRequired(tone))
                 {
-                    Press(9);
                     DecreaseOctave();
                 }
             }
@@ -33,27 +32,49 @@ namespace guildwars
             Press(Key(tone));
         }
 
+        private bool IsIncreaseOctaveRequired(Tone tone)
+        {
+            return OctaveId(_octave) < OctaveId(tone.Octave);
+        }
+
+        private bool IsDecreaseOctaveRequired(Tone tone)
+        {
+            return OctaveId(_octave) > OctaveId(tone.Octave);
+        }
+
         private void IncreaseOctave()
         {
-            if (_octave == Octave.Third)
+            if (_octave == Octave.Fourth)
             {
-                _octave = Octave.Fourth;
-            }
-            else if (_octave == Octave.Fourth)
-            {
+                Press(0);
                 _octave = Octave.Fifth;
+            }
+            else if (_octave == Octave.Fifth)
+            {
+                Press(0);
+                _octave = Octave.Sixth;
+            }
+            else if (_octave == Octave.Sixth)
+            {
+                _octave = Octave.Seventh;
             }
         }
 
         private void DecreaseOctave()
         {
-            if (_octave == Octave.Fifth)
+            if (_octave == Octave.Seventh)
             {
-                _octave = Octave.Fourth;
+                _octave = Octave.Sixth;
             }
-            else if (_octave == Octave.Fourth)
+            else if(_octave == Octave.Sixth)
             {
-                _octave = Octave.Third;
+                Press(9);
+                _octave = Octave.Fifth;
+            }
+            else if (_octave == Octave.Fifth)
+            {
+                Press(9);
+                _octave = Octave.Fourth;
             }
         }
 
@@ -61,14 +82,14 @@ namespace guildwars
         {
             switch (octave)
             {
-                case Octave.Third:
-                    return 3;
                 case Octave.Fourth:
                     return 4;
                 case Octave.Fifth:
                     return 5;
                 case Octave.Sixth:
                     return 6;
+                case Octave.Seventh:
+                    return 7;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(octave), octave, null);
             }
@@ -76,7 +97,7 @@ namespace guildwars
 
         private int Key(Tone tone)
         {
-            if (tone.Note == Note.C && tone.Octave == Octave.Sixth)
+            if (tone.Note == Note.C && tone.Octave == Octave.Seventh)
             {
                 return 8;
             }
@@ -115,6 +136,7 @@ namespace guildwars
         private void Press(int key)
         {
             _keyboard.Press(key);
+            Thread.Sleep(30);
             _keyboard.Release(key);
         }
     }

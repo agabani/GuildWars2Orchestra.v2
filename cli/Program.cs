@@ -17,11 +17,18 @@ namespace cli
 
         private static void Guildwars()
         {
+            var sheet = new MidiReader().Read("Stand By Me.mid");
+
             var eventQueue = new EventQueue();
 
             var player = new Player(eventQueue, new Controller(new Keyboard()));
 
             player.Start();
+
+            var jukebox = new Jukebox(eventQueue);
+
+            jukebox.Play(sheet);
+
         }
 
         private static void Midi()

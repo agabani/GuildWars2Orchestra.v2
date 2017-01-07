@@ -38,14 +38,14 @@ namespace guildwars
 
         public Keyboard()
         {
-//            var mainWindowHandle = Process.GetProcesses()
-//                .First(
-//                    p => p.ProcessName.Equals("GW2-64", StringComparison.OrdinalIgnoreCase) ||
-//                         p.ProcessName.Equals("GW2", StringComparison.OrdinalIgnoreCase)).MainWindowHandle;
-
             var mainWindowHandle = Process.GetProcesses()
                 .First(
-                    p => p.ProcessName.Equals("notepad", StringComparison.OrdinalIgnoreCase)).MainWindowHandle;
+                    p => p.ProcessName.Equals("GW2-64", StringComparison.OrdinalIgnoreCase) ||
+                         p.ProcessName.Equals("GW2", StringComparison.OrdinalIgnoreCase)).MainWindowHandle;
+
+//            var mainWindowHandle = Process.GetProcesses()
+//                .First(
+//                    p => p.ProcessName.Equals("notepad", StringComparison.OrdinalIgnoreCase)).MainWindowHandle;
 
             PInvoke.SetForegroundWindow(mainWindowHandle);
         }
