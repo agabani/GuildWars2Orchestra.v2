@@ -2,9 +2,6 @@ namespace music
 {
     public enum Note
     {
-        A,
-        ASharp,
-        B,
         C,
         CSharp,
         D,
@@ -13,6 +10,9 @@ namespace music
         F,
         FSharp,
         G,
-        GSharp
+        GSharp,
+        A,
+        ASharp,
+        B
     }
 }
