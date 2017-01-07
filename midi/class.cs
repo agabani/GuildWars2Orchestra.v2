@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using music;
 using NAudio.Midi;
@@ -16,12 +15,10 @@ namespace midi
 
             var timeSignature = TimeSignature(midiFile.Events);
 
-            var notes = Notes(midiFile.Events, tempo).ToList();
-
             return new Sheet
             {
                 Tempo = tempo,
-                Tokens = notes.ToArray()
+                Tokens = Notes(midiFile.Events, tempo)
             };
         }
 
@@ -45,13 +42,20 @@ namespace midi
                 .Last().TimeSignature;
         }
 
-        private static IEnumerable<Token> Notes(MidiEventCollection midiEventCollection, double tempo)
+        private static Token[][] Notes(MidiEventCollection midiEventCollection, double tempo)
         {
-            return midiEventCollection
-                .SelectMany(@event => @event)
-                .OfType<NoteOnEvent>()
-                .Where(@event => @event.Velocity > 0)
-                .Select(@event => Convert(@event, tempo));
+            var tokens = new Token[midiEventCollection.Tracks][];
+
+            for (var track = 0; track < midiEventCollection.Tracks; track++)
+            {
+                tokens[track] = midiEventCollection[track]
+                    .OfType<NoteOnEvent>()
+                    .Where(@event => @event.Velocity > 0)
+                    .Select(@event => Convert(@event, tempo))
+                    .ToArray();
+            }
+
+            return tokens;
         }
 
         private static Token Convert(NoteOnEvent @event, double tempo)
@@ -152,7 +156,8 @@ namespace midi
                 {
                     Note = note,
                     Octave = octave
-                }
+                },
+                AbsoluteTimeMs = @event.AbsoluteTime
             };
         }
     }

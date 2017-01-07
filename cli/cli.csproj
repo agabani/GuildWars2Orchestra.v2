@@ -41,6 +41,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SignalGenerator.cs" />
     <Compile Include="models\AudioToken.cs" />
+    <Compile Include="TimedSignalGenerator.cs" />
     <Compile Include="WavePacker.cs" />
   </ItemGroup>
   <ItemGroup>

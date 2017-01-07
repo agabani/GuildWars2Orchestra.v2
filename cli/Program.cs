@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using cli.models;
 using midi;
 using music;
 
@@ -18,16 +17,11 @@ namespace cli
         {
             var sheet = new Class().Run();
 
-            var assembler = new AudioTokenConvertor(sheet.Tempo);
-            var signalGenerator = new SignalGenerator();
+            var generator = new TimedSignalGenerator(new AudioTokenConvertor(sheet.Tempo));
+
+            var audioSamples = generator.Generate(sheet);
+
             var wavePacker = new WavePacker();
-
-            var audioSamples = sheet.Tokens
-                .Select(token => assembler.Convert(token))
-                .Select(audioToken => signalGenerator.GenerateSamples((long)audioToken.Duration.TotalMilliseconds, audioToken.Frequency))
-                .SelectMany(audioTokenSamples => audioTokenSamples)
-                .ToArray();
-
             using (var memoryStream = wavePacker.Pack(audioSamples))
             {
                 wavePacker.Write("midi.wav", memoryStream);
