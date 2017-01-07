@@ -5,11 +5,11 @@ using NAudio.Midi;
 
 namespace midi
 {
-    public class Class
+    public class MidiReader
     {
-        public Sheet Run()
+        public Sheet Read(string path)
         {
-            var midiFile = new MidiFile("Stand By Me.mid");
+            var midiFile = new MidiFile(path);
 
             var tempo = Tempo(midiFile.Events);
 

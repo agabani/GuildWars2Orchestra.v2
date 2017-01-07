@@ -34,8 +34,10 @@ namespace guildwars
                 {
                     Thread.Sleep(1);
                 }
-
-                PlayToken(token);
+                else
+                {
+                    PlayToken(token);
+                }
             }
         }
 

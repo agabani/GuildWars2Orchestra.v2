@@ -26,7 +26,7 @@ namespace cli
 
         private static void Midi()
         {
-            var sheet = new Class().Run();
+            var sheet = new MidiReader().Read("Stand By Me.mid");
 
             var generator = new TimedSignalGenerator(new AudioTokenConvertor(sheet.Tempo));
 
