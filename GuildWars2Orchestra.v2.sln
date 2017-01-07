@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "midi", "midi\midi.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "music", "music\music.csproj", "{42267AA0-9861-4C3C-A928-DB9CFF98EA56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "musicbox", "musicbox\musicbox.csproj", "{8399790C-20C1-4C33-A9BC-5F87D79BFFFB}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{42267AA0-9861-4C3C-A928-DB9CFF98EA56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42267AA0-9861-4C3C-A928-DB9CFF98EA56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42267AA0-9861-4C3C-A928-DB9CFF98EA56}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8399790C-20C1-4C33-A9BC-5F87D79BFFFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8399790C-20C1-4C33-A9BC-5F87D79BFFFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8399790C-20C1-4C33-A9BC-5F87D79BFFFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8399790C-20C1-4C33-A9BC-5F87D79BFFFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
