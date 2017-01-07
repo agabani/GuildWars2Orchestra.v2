@@ -18,9 +18,10 @@ namespace cli
 
         public short[] Generate(Sheet sheet)
         {
-            var length = Sample(GetLength(sheet));
+            var lengthMs = GetLength(sheet);
+            var numberOfSamples = Sample(lengthMs);
 
-            var intBuffer = new int[length];
+            var intBuffer = new int[numberOfSamples];
 
             foreach (var track in sheet.Tokens)
             {
@@ -30,19 +31,12 @@ namespace cli
                 }
             }
 
-            var shortBuffer = new short[length];
+            return ToShort(numberOfSamples, intBuffer);
+        }
 
-            for (var index = 0; index < length; index++)
-            {
-                shortBuffer[index] = (short)
-                    (intBuffer[index] > _sixteenBitSampleLimit
-                        ? _sixteenBitSampleLimit
-                        : intBuffer[index] < -_sixteenBitSampleLimit
-                            ? -_sixteenBitSampleLimit
-                            : intBuffer[index]);
-            }
-
-            return shortBuffer;
+        private static long Sample(long millisecond)
+        {
+            return (long) (millisecond/1000.0*SampleRate);
         }
 
         private void Add(Token token, int[] buffer)
@@ -54,13 +48,8 @@ namespace cli
 
             for (var index = startIndex; index < startIndex + deltaIndex; index++)
             {
-                buffer[index] = buffer[index] + ToAmplitute(index, audioToken.Frequency, 0.1);
+                buffer[index] = buffer[index] + ToAmplitute(index, audioToken.Frequency, 0.05);
             }
-        }
-
-        private static long Sample(long millisecond)
-        {
-            return (long) (millisecond/1000.0*SampleRate);
         }
 
         private long GetLength(Sheet sheet)
@@ -78,6 +67,23 @@ namespace cli
         private short ToAmplitute(long sample, double frequency, double decay)
         {
             return (short) (Math.Sin(sample*2*Math.PI*frequency/SampleRate)*_sixteenBitSampleLimit*decay);
+        }
+
+        private short[] ToShort(long numberOfSamples, int[] intBuffer)
+        {
+            var shortBuffer = new short[numberOfSamples];
+
+            for (var index = 0; index < numberOfSamples; index++)
+            {
+                shortBuffer[index] = (short)
+                    (intBuffer[index] > _sixteenBitSampleLimit
+                        ? _sixteenBitSampleLimit
+                        : intBuffer[index] < -_sixteenBitSampleLimit
+                            ? -_sixteenBitSampleLimit
+                            : intBuffer[index]);
+            }
+
+            return shortBuffer;
         }
     }
 }

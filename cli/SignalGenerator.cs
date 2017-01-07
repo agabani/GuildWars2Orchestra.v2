@@ -1,4 +1,5 @@
 ﻿using System;
+using cli.models;
 
 namespace cli
 {
@@ -6,6 +7,11 @@ namespace cli
     {
         private const double SampleRate = 44100;
         private readonly double _sixteenBitSampleLimit = Math.Pow(2, 16)/2 - 1;
+
+        public short[] GenerateSamples(AudioToken audioToken)
+        {
+            return GenerateSamples((long) audioToken.Duration.TotalMilliseconds, audioToken.Frequency);
+        }
 
         public short[] GenerateSamples(long milliseconds, double frequency)
         {

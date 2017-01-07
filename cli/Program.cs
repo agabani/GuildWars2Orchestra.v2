@@ -68,19 +68,19 @@ namespace cli
                 new Token {Length = length, Tone = new Tone {IsRest = false, Note = Note.B, Octave = Octave.Second}}
             };
 
-            var assembler = new AudioTokenConvertor(200);
+            var convertor = new AudioTokenConvertor(200);
             var signalGenerator = new SignalGenerator();
             var wavePacker = new WavePacker();
 
             var audioSamples = tokens
-                .Select(token => assembler.Convert(token))
-                .Select(audioToken => signalGenerator.GenerateSamples((long) audioToken.Duration.TotalMilliseconds, audioToken.Frequency))
+                .Select(token => convertor.Convert(token))
+                .Select(audioToken => signalGenerator.GenerateSamples(audioToken))
                 .SelectMany(audioTokenSamples => audioTokenSamples)
                 .ToArray();
 
             using (var memoryStream = wavePacker.Pack(audioSamples))
             {
-                wavePacker.Write("text.wav", memoryStream);
+                wavePacker.Write("gen.wav", memoryStream);
             }
         }
     }
