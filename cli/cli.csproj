@@ -48,6 +48,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Musician_14th_song_d.gray_man.mid">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pokemon Red Version  Pokemon Blue Version - Pokemon Center.mid">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pokemon Red Version  Pokemon Blue Version - The SS Anne.mid">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="prelude.mid">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

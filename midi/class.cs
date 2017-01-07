@@ -61,8 +61,6 @@ namespace midi
         private static Token Convert(NoteOnEvent @event, double tempo, int deltaTicksPerQuarterNote)
         {
             Note note;
-            Octave octave;
-
             switch (@event.NoteNumber%12)
             {
                 case 0:
@@ -105,6 +103,7 @@ namespace midi
                     throw new ArgumentOutOfRangeException();
             }
 
+            Octave octave;
             switch (@event.NoteNumber/12)
             {
                 case 0:
@@ -144,27 +143,38 @@ namespace midi
                     throw new ArgumentOutOfRangeException();
             }
 
-            var noteLength = @event.NoteLength;
+            return Token(
+                note, octave,
+                ToMilliseconds(@event.NoteLength, tempo, deltaTicksPerQuarterNote), tempo,
+                ToMilliseconds(@event.AbsoluteTime, tempo, deltaTicksPerQuarterNote)
+                );
+        }
 
+        private static Token Token(Note note, Octave octave, double noteLengthMs, double tempo, double absoluteTimeMs)
+        {
             return new Token
             {
                 Length = new Length
                 {
-                    Fraction = new Fraction(AbsoluteTimeMs(noteLength, tempo, deltaTicksPerQuarterNote) / 1000.0*tempo/60/4, 1)
+                    Fraction = Fraction(noteLengthMs, tempo)
                 },
                 Tone = new Tone
                 {
                     Note = note,
                     Octave = octave
                 },
-
-                AbsoluteTimeMs = (long) AbsoluteTimeMs(@event.AbsoluteTime, tempo, deltaTicksPerQuarterNote)
+                AbsoluteTime = TimeSpan.FromMilliseconds(absoluteTimeMs)
             };
         }
 
-        private static double AbsoluteTimeMs(long absoluteTime, double tempo, int deltaTicksPerQuarterNote)
+        private static double ToMilliseconds(long tick, double tempo, double deltaTicksPerQuarterNote)
         {
-            return absoluteTime * 60000 / (double)deltaTicksPerQuarterNote / tempo;
+            return tick*60000/deltaTicksPerQuarterNote/tempo;
+        }
+
+        private static Fraction Fraction(double milliseconds, double tempo)
+        {
+            return new Fraction(milliseconds/1000.0*tempo/60/4, 1);
         }
     }
 }

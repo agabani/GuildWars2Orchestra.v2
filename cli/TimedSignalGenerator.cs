@@ -43,7 +43,7 @@ namespace cli
         {
             var audioToken = _convertor.Convert(token);
 
-            var startIndex = Sample(token.AbsoluteTimeMs);
+            var startIndex = Sample((long) token.AbsoluteTime.TotalMilliseconds);
             var deltaIndex = Sample((long) audioToken.Duration.TotalMilliseconds);
 
             for (var index = startIndex; index < startIndex + deltaIndex && index < buffer.Length; index++)
@@ -56,12 +56,12 @@ namespace cli
         {
             var lastToken = sheet.Tokens
                 .SelectMany(token => token)
-                .OrderBy(token => token.AbsoluteTimeMs)
+                .OrderBy(token => token.AbsoluteTime)
                 .ThenBy(token => (double) token.Length.Fraction)
                 .Last();
 
             return (long) (_convertor.Convert(lastToken).Duration.TotalMilliseconds
-                           + lastToken.AbsoluteTimeMs);
+                           + lastToken.AbsoluteTime.TotalMilliseconds);
         }
 
         private short ToAmplitute(long sample, double frequency, double decay)
