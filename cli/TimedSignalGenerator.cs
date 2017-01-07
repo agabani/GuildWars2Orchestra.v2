@@ -46,7 +46,7 @@ namespace cli
             var startIndex = Sample(token.AbsoluteTimeMs);
             var deltaIndex = Sample((long) audioToken.Duration.TotalMilliseconds);
 
-            for (var index = startIndex; index < startIndex + deltaIndex; index++)
+            for (var index = startIndex; index < startIndex + deltaIndex && index < buffer.Length; index++)
             {
                 buffer[index] = buffer[index] + ToAmplitute(index, audioToken.Frequency, 0.05);
             }

@@ -18,7 +18,7 @@ namespace midi
             return new Sheet
             {
                 Tempo = tempo,
-                Tokens = Notes(midiFile.Events, tempo)
+                Tokens = Notes(midiFile.Events, tempo, midiFile.DeltaTicksPerQuarterNote)
             };
         }
 
@@ -42,7 +42,7 @@ namespace midi
                 .Last().TimeSignature;
         }
 
-        private static Token[][] Notes(MidiEventCollection midiEventCollection, double tempo)
+        private static Token[][] Notes(MidiEventCollection midiEventCollection, double tempo, int deltaTicksPerQuarterNote)
         {
             var tokens = new Token[midiEventCollection.Tracks][];
 
@@ -51,14 +51,14 @@ namespace midi
                 tokens[track] = midiEventCollection[track]
                     .OfType<NoteOnEvent>()
                     .Where(@event => @event.Velocity > 0)
-                    .Select(@event => Convert(@event, tempo))
+                    .Select(@event => Convert(@event, tempo, deltaTicksPerQuarterNote))
                     .ToArray();
             }
 
             return tokens;
         }
 
-        private static Token Convert(NoteOnEvent @event, double tempo)
+        private static Token Convert(NoteOnEvent @event, double tempo, int deltaTicksPerQuarterNote)
         {
             Note note;
             Octave octave;
@@ -150,15 +150,21 @@ namespace midi
             {
                 Length = new Length
                 {
-                    Fraction = new Fraction(noteLength/1000.0*tempo/60/4, 1)
+                    Fraction = new Fraction(AbsoluteTimeMs(noteLength, tempo, deltaTicksPerQuarterNote) / 1000.0*tempo/60/4, 1)
                 },
                 Tone = new Tone
                 {
                     Note = note,
                     Octave = octave
                 },
-                AbsoluteTimeMs = @event.AbsoluteTime
+
+                AbsoluteTimeMs = (long) AbsoluteTimeMs(@event.AbsoluteTime, tempo, deltaTicksPerQuarterNote)
             };
+        }
+
+        private static double AbsoluteTimeMs(long absoluteTime, double tempo, int deltaTicksPerQuarterNote)
+        {
+            return absoluteTime * 60000 / (double)deltaTicksPerQuarterNote / tempo;
         }
     }
 }
