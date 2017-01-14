@@ -1,4 +1,49 @@
 ﻿{
   "name": "Prelude",
-  "path": "./data/prelude.midi"
+  "path": "./data/prelude.mid",
+  "speed": 1.0,
+  "tracks": {
+    "0": {
+      "ignore": true
+    },
+    "1": {
+      "ignore": true
+    },
+    "2": {
+      "ignore": true
+    },
+    "3": {
+      "ignore": true
+    },
+    "4": {
+      "ignore": true
+    },
+    "5": {
+      "ignore": true
+    },
+    "6": {
+      "ignore": true
+    },
+    "7": {
+      "ignore": true
+    },
+    "8": {
+      "ignore": true
+    },
+    "9": {
+      "ignore": true
+    },
+    "10": {
+      "ignore": true
+    },
+    "11": {
+      "ignore": true
+    },
+    "12": {
+      "ignore": true
+    },
+    "13": {
+      "ignore": true
+    }
+  }
 }

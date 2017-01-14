@@ -11,8 +11,8 @@ namespace cli
     {
         private static void Main(string[] args)
         {
-            var sheet = InputFromMidi();
-            Info();
+            var sheet = InputFromJson();
+            //Info("prelude.mid");
             OutputToWave(sheet);
         }
 
@@ -65,13 +65,16 @@ namespace cli
 
         private static Sheet InputFromMidi()
         {
-            return new MidiReader().Read("prelude.mid");
+            return new MidiReader().Read("data/prelude.mid");
         }
 
-        private static void Info()
+        private static Sheet InputFromJson()
         {
-            const string path = "prelude.mid";
+            return new JsonReader().Read("data/prelude.json");
+        }
 
+        private static void Info(string path)
+        {
             var midiInfo = new MidiInfo(path);
 
             Console.WriteLine($"Path:           {path}");

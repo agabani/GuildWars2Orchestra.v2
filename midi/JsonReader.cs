@@ -1,23 +1,33 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using midi.Convertor;
 using midi.Info;
 using music;
 using NAudio.Midi;
+using Newtonsoft.Json;
 
 namespace midi
 {
-    public class MidiReader
+    public class JsonReader
     {
         public Sheet Read(string path)
         {
-            var midiFile = new MidiFile(path);
-            var midiInfo = new MidiInfo(path);
+            var profile = ReadProfile(path);
+
+            var midiFile = new MidiFile(profile.Path);
+            var midiInfo = new MidiInfo(profile.Path);
 
             return new Sheet
             {
+                Profile = profile,
                 Tempo = midiInfo.Tempo,
                 Tokens = Notes(midiFile.Events, midiInfo.Tempo, midiFile.DeltaTicksPerQuarterNote)
             };
+        }
+
+        private static Profile ReadProfile(string path)
+        {
+            return JsonConvert.DeserializeObject<Profile>(File.ReadAllText(path));
         }
 
         private static Token[][] Notes(MidiEventCollection midiEventCollection, double tempo, int deltaTicksPerQuarterNote)

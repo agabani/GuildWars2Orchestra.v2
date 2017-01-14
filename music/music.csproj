@@ -38,6 +38,7 @@
     <Compile Include="Length.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="Octave.cs" />
+    <Compile Include="Profile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sheet.cs" />
     <Compile Include="Token.cs" />
