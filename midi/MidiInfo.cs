@@ -7,8 +7,9 @@ namespace midi
 {
     public class MidiInfo
     {
-        public MidiInfo(MidiFile file)
+        public MidiInfo(string path)
         {
+            var file = new MidiFile(path);
             Tempo = GetTempo(file);
             TimeSignature = GetTimeSignature(file);
             TrackInfos = GetTrackInfos(file);

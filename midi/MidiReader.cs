@@ -11,8 +11,6 @@ namespace midi
         {
             var midiFile = new MidiFile(path);
 
-            var midiInfo = new MidiInfo(midiFile);
-
             var tempo = Tempo(midiFile.Events);
 
             var timeSignature = TimeSignature(midiFile.Events);

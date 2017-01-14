@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using guildwars;
 using midi;
@@ -10,9 +11,36 @@ namespace cli
     {
         private static void Main(string[] args)
         {
+            Info();
             //Guildwars();
             Midi();
             //Generate();
+        }
+
+        private static void Info()
+        {
+            const string path = "prelude.mid";
+
+            var midiInfo = new MidiInfo(path);
+
+            Console.WriteLine($"Path:           {path}");
+            Console.WriteLine($"Tempo:          {midiInfo.Tempo}");
+            Console.WriteLine($"Time Signature: {midiInfo.TimeSignature}");
+            Console.WriteLine($"Tracks:         {midiInfo.TrackInfos.Count}");
+
+            foreach (var keyValuePair in midiInfo.TrackInfos)
+            {
+                Console.WriteLine($"Track: {keyValuePair.Key}");
+                Console.WriteLine($"    Number of Notes: {keyValuePair.Value.NumberOfNotes}");
+                if (keyValuePair.Value.LowestTone != null)
+                {
+                    Console.WriteLine($"    Lowest Tone:     {keyValuePair.Value.LowestTone.Note}.{keyValuePair.Value.LowestTone.Octave}");
+                }
+                if (keyValuePair.Value.HighestTone != null)
+                {
+                    Console.WriteLine($"    Highest Tone:    {keyValuePair.Value.HighestTone.Note}.{keyValuePair.Value.HighestTone.Octave}");
+                }
+            }
         }
 
         private static void Guildwars()
@@ -28,7 +56,6 @@ namespace cli
             var jukebox = new Jukebox(eventQueue);
 
             jukebox.Play(sheet);
-
         }
 
         private static void Midi()
