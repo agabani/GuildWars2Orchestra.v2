@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using music;
@@ -17,8 +18,8 @@ namespace guildwars
         public void Play(Sheet sheet)
         {
             var enumerable = sheet.Tokens
+                .Where(pair => ShouldIncludeTrack(sheet, pair))
                 .SelectMany(pair => pair.Value)
-                //.Last()
                 .Where(token => IsToneInRange(token.Tone))
                 .OrderBy(token => token.AbsoluteTime)
                 .ToArray();
@@ -27,7 +28,7 @@ namespace guildwars
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            for (int index = 0; index < enumerable.Length;)
+            for (var index = 0; index < enumerable.Length;)
             {
                 if (stopwatch.ElapsedMilliseconds > enumerable[index].AbsoluteTime.TotalMilliseconds)
                 {
@@ -39,6 +40,12 @@ namespace guildwars
             }
         }
 
+        private static bool ShouldIncludeTrack(Sheet sheet, KeyValuePair<int, Token[]> track)
+        {
+            return sheet.Profile == null
+                   || !sheet.Profile.Tracks.ContainsKey(track.Key)
+                   || !sheet.Profile.Tracks[track.Key].Ignore;
+        }
 
         private bool IsToneInRange(Tone tone)
         {

@@ -13,7 +13,8 @@ namespace cli
         {
             var sheet = InputFromJson();
             //Info("prelude.mid");
-            OutputToWave(sheet);
+            //OutputToWave(sheet);
+            OutputToGuildwars(sheet);
         }
 
         private static Sheet InputFromHardcode()
