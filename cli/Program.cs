@@ -10,8 +10,8 @@ namespace cli
     {
         private static void Main(string[] args)
         {
-            Guildwars();
-            //Midi();
+            //Guildwars();
+            Midi();
             //Generate();
         }
 
@@ -33,7 +33,7 @@ namespace cli
 
         private static void Midi()
         {
-            var sheet = new MidiReader().Read("Final Fantasy.mid");
+            var sheet = new MidiReader().Read("prelude.mid");
 
             var generator = new TimedSignalGenerator(new AudioTokenConvertor(sheet.Tempo));
 
