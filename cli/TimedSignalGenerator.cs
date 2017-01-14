@@ -18,7 +18,9 @@ namespace cli
 
         public short[] Generate(Sheet sheet)
         {
-            var lengthMs = GetLength(sheet);
+            var speedModifier = sheet.Profile?.Speed ?? 1.0;
+
+            var lengthMs = (long) (GetLength(sheet) / speedModifier);
             var numberOfSamples = Sample(lengthMs);
 
             var intBuffer = new int[numberOfSamples];
@@ -32,7 +34,7 @@ namespace cli
                 {
                     foreach (var token in track.Value)
                     {
-                        Add(token, intBuffer);
+                        Add(token, intBuffer, speedModifier);
                     }
                 }
             }
@@ -45,12 +47,12 @@ namespace cli
             return (long) (millisecond/1000.0*SampleRate);
         }
 
-        private void Add(Token token, int[] buffer)
+        private void Add(Token token, int[] buffer, double speedModifier)
         {
             var audioToken = _convertor.Convert(token);
 
-            var startIndex = Sample((long) token.AbsoluteTime.TotalMilliseconds);
-            var deltaIndex = Sample((long) audioToken.Duration.TotalMilliseconds);
+            var startIndex = Sample((long) (token.AbsoluteTime.TotalMilliseconds / speedModifier));
+            var deltaIndex = Sample((long) (audioToken.Duration.TotalMilliseconds / speedModifier));
 
             for (var index = startIndex; index < startIndex + deltaIndex && index < buffer.Length; index++)
             {
