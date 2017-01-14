@@ -48,25 +48,25 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Final Fantasy.mid">
+    <Content Include="data\Final Fantasy.mid">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Musician_14th_song_d.gray_man.mid">
+    <Content Include="data\Musician_14th_song_d.gray_man.mid">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pokemon Red Version  Pokemon Blue Version - Pokemon Center.mid">
+    <Content Include="data\Pokemon Red Version  Pokemon Blue Version - Pokemon Center.mid">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pokemon Red Version  Pokemon Blue Version - The SS Anne.mid">
+    <Content Include="data\Pokemon Red Version  Pokemon Blue Version - The SS Anne.mid">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="prelude.mid">
+    <Content Include="data\prelude.mid">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="rewrite.mid">
+    <Content Include="data\rewrite.mid">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Stand By Me.mid">
+    <Content Include="data\Stand By Me.mid">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
