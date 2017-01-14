@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using midi.Convertor;
 using midi.Info;
 using music;
@@ -20,17 +21,17 @@ namespace midi
             };
         }
 
-        private static Token[][] Notes(MidiEventCollection midiEventCollection, double tempo, int deltaTicksPerQuarterNote)
+        private static Dictionary<int, Token[]> Notes(MidiEventCollection midiEventCollection, double tempo, int deltaTicksPerQuarterNote)
         {
-            var tokens = new Token[midiEventCollection.Tracks][];
+            var tokens = new Dictionary<int, Token[]>();
 
             for (var track = 0; track < midiEventCollection.Tracks; track++)
             {
-                tokens[track] = midiEventCollection[track]
+                tokens.Add(track, midiEventCollection[track]
                     .OfType<NoteOnEvent>()
                     .Where(@event => @event.Velocity > 0)
                     .Select(@event => TokenConvertor.Convert(@event, tempo, deltaTicksPerQuarterNote))
-                    .ToArray();
+                    .ToArray());
             }
 
             return tokens;

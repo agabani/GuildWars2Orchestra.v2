@@ -17,7 +17,7 @@ namespace guildwars
         public void Play(Sheet sheet)
         {
             var enumerable = sheet.Tokens
-                .SelectMany(token => token)
+                .SelectMany(pair => pair.Value)
                 //.Last()
                 .Where(token => IsToneInRange(token.Tone))
                 .OrderBy(token => token.AbsoluteTime)

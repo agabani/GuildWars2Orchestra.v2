@@ -59,7 +59,7 @@ namespace cli
             return new Sheet
             {
                 Tempo = 200,
-                Tokens = new[] {tokens.ToArray()}
+                Tokens = new Dictionary<int, Token[]> {{0, tokens.ToArray()}}
             };
         }
 

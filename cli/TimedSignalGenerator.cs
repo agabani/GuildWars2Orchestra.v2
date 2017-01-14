@@ -25,9 +25,15 @@ namespace cli
 
             foreach (var track in sheet.Tokens)
             {
-                foreach (var token in track)
+                if (sheet.Profile.Tracks.ContainsKey(track.Key) && sheet.Profile.Tracks[track.Key].Ignore)
                 {
-                    Add(token, intBuffer);
+                }
+                else
+                {
+                    foreach (var token in track.Value)
+                    {
+                        Add(token, intBuffer);
+                    }
                 }
             }
 
@@ -55,7 +61,7 @@ namespace cli
         private long GetLength(Sheet sheet)
         {
             var lastToken = sheet.Tokens
-                .SelectMany(token => token)
+                .SelectMany(keyValuePair => keyValuePair.Value)
                 .OrderBy(token => token.AbsoluteTime)
                 .ThenBy(token => (double) token.Length.Fraction)
                 .Last();
