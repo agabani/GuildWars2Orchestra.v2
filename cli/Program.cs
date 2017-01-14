@@ -17,7 +17,7 @@ namespace cli
 
         private static void Guildwars()
         {
-            var sheet = new MidiReader().Read("Stand By Me.mid");
+            var sheet = new MidiReader().Read("Pokemon Red Version  Pokemon Blue Version - Pokemon Center.mid");
 
             var eventQueue = new EventQueue();
 
@@ -33,7 +33,7 @@ namespace cli
 
         private static void Midi()
         {
-            var sheet = new MidiReader().Read("Stand By Me.mid");
+            var sheet = new MidiReader().Read("Final Fantasy.mid");
 
             var generator = new TimedSignalGenerator(new AudioTokenConvertor(sheet.Tempo));
 

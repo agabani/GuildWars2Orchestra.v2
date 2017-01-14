@@ -48,6 +48,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Final Fantasy.mid">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Musician_14th_song_d.gray_man.mid">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

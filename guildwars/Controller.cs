@@ -27,9 +27,12 @@ namespace guildwars
                 {
                     DecreaseOctave();
                 }
+                Thread.Sleep(1);
             }
 
             Press(Key(tone));
+
+            Thread.Sleep(110);
         }
 
         private bool IsIncreaseOctaveRequired(Tone tone)
@@ -136,7 +139,6 @@ namespace guildwars
         private void Press(int key)
         {
             _keyboard.Press(key);
-            Thread.Sleep(30);
             _keyboard.Release(key);
         }
     }

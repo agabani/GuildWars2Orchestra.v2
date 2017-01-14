@@ -16,17 +16,12 @@ namespace guildwars
 
         public void Play(Sheet sheet)
         {
-            var enumerable = sheet.Tokens.OrderBy(tokens => tokens.Length)
-                .Last()
+            var enumerable = sheet.Tokens
+                .SelectMany(token => token)
+                //.Last()
                 .Where(token => IsToneInRange(token.Tone))
                 .OrderBy(token => token.AbsoluteTime)
                 .ToArray();
-
-/*            var enumerable = sheet.Tokens
-                .SelectMany(token => token)
-                .Where(token => IsToneInRange(token.Tone))
-                .OrderBy(token => token.AbsoluteTime)
-                .ToArray();*/
 
 
             var stopwatch = new Stopwatch();
