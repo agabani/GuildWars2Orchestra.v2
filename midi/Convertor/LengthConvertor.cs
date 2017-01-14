@@ -1,7 +1,7 @@
 ﻿using music;
 using NAudio.Midi;
 
-namespace midi
+namespace midi.Convertor
 {
     internal class LengthConvertor
     {

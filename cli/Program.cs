@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using guildwars;
 using midi;
+using midi.Info;
 using music;
 
 namespace cli

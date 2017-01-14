@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using midi.Convertor;
 using music;
 using NAudio.Midi;
 
-namespace midi
+namespace midi.Info
 {
     public class TrackInfo
     {
