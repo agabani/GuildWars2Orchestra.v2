@@ -28,9 +28,12 @@ namespace guildwars
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
+
+            var speed = sheet.Profile?.Speed ?? 1.0;
+
             for (var index = 0; index < enumerable.Length;)
             {
-                if (stopwatch.ElapsedMilliseconds > enumerable[index].AbsoluteTime.TotalMilliseconds)
+                if (stopwatch.ElapsedMilliseconds > enumerable[index].AbsoluteTime.TotalMilliseconds/speed)
                 {
                     _eventQueue.Queue(enumerable[index]);
                     index++;
@@ -40,7 +43,7 @@ namespace guildwars
             }
         }
 
-        private static bool ShouldIncludeTrack(Sheet sheet, KeyValuePair<int, Token[]> track)
+        private bool ShouldIncludeTrack(Sheet sheet, KeyValuePair<int, Token[]> track)
         {
             return sheet.Profile == null
                    || !sheet.Profile.Tracks.ContainsKey(track.Key)
