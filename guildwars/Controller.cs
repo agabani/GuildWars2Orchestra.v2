@@ -32,7 +32,7 @@ namespace guildwars
 
             Press(Key(tone));
 
-            Thread.Sleep(30);
+            Thread.Sleep(100);
         }
 
         private bool IsIncreaseOctaveRequired(Tone tone)

@@ -1,0 +1,13 @@
+﻿{
+  "name": "Prelude",
+  "path": "./data/Pokemon Red Version  Pokemon Blue Version - Pokemon Center.mid",
+  "speed": 1.0,
+  "tracks": {
+    "0": {
+      "ignore": true
+    },
+    "1": {
+      "ignore": false
+    }
+  }
+}

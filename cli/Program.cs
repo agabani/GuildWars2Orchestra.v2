@@ -12,7 +12,7 @@ namespace cli
         private static void Main(string[] args)
         {
             var sheet = InputFromJson();
-            //Info("prelude.mid");
+            //Info("data/Pokemon Red Version  Pokemon Blue Version - Pokemon Center.mid");
             //OutputToWave(sheet);
             OutputToGuildwars(sheet);
         }
@@ -71,7 +71,7 @@ namespace cli
 
         private static Sheet InputFromJson()
         {
-            return new JsonReader().Read("data/prelude.json");
+            return new JsonReader().Read("data/Pokemon Red Version  Pokemon Blue Version - Pokemon Center.json");
         }
 
         private static void Info(string path)
