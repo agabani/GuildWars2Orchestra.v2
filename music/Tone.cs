@@ -9,7 +9,14 @@
         }
 
         public bool IsRest { get; set; }
-        public Note Note { get; private set; }
-        public Octave Octave { get; private set; }
+        public Note Note { get; }
+        public Octave Octave { get; }
+
+        public static bool operator >(Tone a, Tone b) => Value(a) > Value(b);
+        public static bool operator <(Tone a, Tone b) => Value(a) < Value(b);
+        public static bool operator <=(Tone a, Tone b) => Value(a) <= Value(b);
+        public static bool operator >=(Tone a, Tone b) => Value(a) >= Value(b);
+
+        private static int Value(Tone tone) => (int) tone.Octave*12 + (int) tone.Note;
     }
 }
