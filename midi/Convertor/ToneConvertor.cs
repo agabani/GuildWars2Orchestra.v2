@@ -8,11 +8,7 @@ namespace midi.Convertor
     {
         internal static Tone Convert(NoteOnEvent @event)
         {
-            return new Tone
-            {
-                Note = Note(@event),
-                Octave = Octave(@event)
-            };
+            return new Tone(Note(@event), Octave(@event));
         }
 
         private static Note Note(NoteOnEvent @event)

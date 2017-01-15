@@ -7,7 +7,7 @@ namespace cli
     public class AudioTokenConvertor
     {
         private const double Frequency0 = 16.35;
-        private static readonly Tone Note0 = new Tone {Note = Note.C, Octave = Octave.Zeroth};
+        private static readonly Tone Note0 = new Tone(Note.C, Octave.Zeroth);
 
         private static readonly Note[] NoteSequence = {Note.C, Note.CSharp, Note.D, Note.DSharp, Note.E, Note.F, Note.FSharp, Note.G, Note.GSharp, Note.A, Note.ASharp, Note.B};
 
