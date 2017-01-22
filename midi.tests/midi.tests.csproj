@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{42267AA0-9861-4C3C-A928-DB9CFF98EA56}</ProjectGuid>
+    <ProjectGuid>{2AA92017-48E6-40D7-B320-7940EF887425}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>music</RootNamespace>
-    <AssemblyName>music</AssemblyName>
+    <RootNamespace>midi.tests</RootNamespace>
+    <AssemblyName>midi.tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,21 +30,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.6.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.6.0\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\NoteExtensions.cs" />
-    <Compile Include="Extensions\OctaveExtensions.cs" />
-    <Compile Include="Fraction.cs" />
-    <Compile Include="Length.cs" />
-    <Compile Include="Note.cs" />
-    <Compile Include="Octave.cs" />
-    <Compile Include="Profile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sheet.cs" />
-    <Compile Include="Token.cs" />
-    <Compile Include="Tone.cs" />
+    <Compile Include="Rule\ToneRuleParserTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\midi\midi.csproj">
+      <Project>{c38d76f1-aa88-47c0-a529-be6b053107d2}</Project>
+      <Name>midi</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

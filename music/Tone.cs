@@ -1,4 +1,6 @@
-﻿namespace music
+﻿using music.Extensions;
+
+namespace music
 {
     public class Tone
     {
@@ -39,6 +41,11 @@
                 hashCode = (hashCode*397) ^ (int) Octave;
                 return hashCode;
             }
+        }
+
+        public override string ToString()
+        {
+            return $"{NoteExtensions.ToString(Note)}{OctaveExtensions.ToString(Octave)}";
         }
     }
 }

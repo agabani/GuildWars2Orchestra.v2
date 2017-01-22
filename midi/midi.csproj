@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Convertor\LengthConvertor.cs" />
-    <Compile Include="Parser\ToneParser.cs" />
+    <Compile Include="Rule\ToneRuleParser.cs" />
     <Compile Include="Info\MidiInfo.cs" />
     <Compile Include="JsonReader.cs" />
     <Compile Include="MidiReader.cs" />
@@ -51,7 +51,7 @@
     <Compile Include="Convertor\TokenConvertor.cs" />
     <Compile Include="Convertor\ToneConvertor.cs" />
     <Compile Include="Info\TrackInfo.cs" />
-    <Compile Include="Rule\CompositeRule.cs" />
+    <Compile Include="Rule\AnyRule.cs" />
     <Compile Include="Rule\IRule.cs" />
     <Compile Include="Rule\RangeRule.cs" />
     <Compile Include="Rule\SingleRule.cs" />

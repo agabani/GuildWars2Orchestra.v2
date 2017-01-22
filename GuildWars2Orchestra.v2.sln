@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "music", "music\music.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "guildwars", "guildwars\guildwars.csproj", "{1E8F57F1-7706-4FBF-BA39-FED02C0DF2B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "midi.tests", "midi.tests\midi.tests.csproj", "{2AA92017-48E6-40D7-B320-7940EF887425}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{1E8F57F1-7706-4FBF-BA39-FED02C0DF2B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E8F57F1-7706-4FBF-BA39-FED02C0DF2B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E8F57F1-7706-4FBF-BA39-FED02C0DF2B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AA92017-48E6-40D7-B320-7940EF887425}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AA92017-48E6-40D7-B320-7940EF887425}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AA92017-48E6-40D7-B320-7940EF887425}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AA92017-48E6-40D7-B320-7940EF887425}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

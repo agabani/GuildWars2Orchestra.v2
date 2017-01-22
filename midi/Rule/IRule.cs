@@ -2,7 +2,7 @@
 
 namespace midi.Rule
 {
-    internal interface IRule
+    public interface IRule
     {
         bool IsAllowed(Tone tone);
     }

@@ -12,5 +12,10 @@ namespace midi.Rule
         }
 
         public bool IsAllowed(Tone tone) => Equals(tone, _tone);
+
+        public override string ToString()
+        {
+            return $"{_tone.ToString()}";
+        }
     }
 }

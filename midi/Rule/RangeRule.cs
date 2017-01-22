@@ -14,5 +14,10 @@ namespace midi.Rule
         }
 
         public bool IsAllowed(Tone tone) => tone >= _lowerTone && tone <= _upperTone;
+
+        public override string ToString()
+        {
+            return $"{_lowerTone}-{_upperTone}";
+        }
     }
 }
