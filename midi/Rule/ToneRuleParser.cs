@@ -19,97 +19,97 @@ namespace midi.Rule
             {
                 var prefix = match.Groups[1];
 
-                var note = ToTone(match.Groups[2], match.Groups[3], match.Groups[4]);
+                var note = ToTone(match.Groups[2].Value, match.Groups[3].Value, match.Groups[4].Value);
                 rules.Add(new SingleRule(note));
             }
 
             return new AnyRule(rules);
         }
 
-        private static Tone ToTone(Group note, Group sharp, Group octave)
+        private static Tone ToTone(string note, string sharp, string octave)
         {
             return new Tone(ToNote(note, sharp), ToOctave(octave));
         }
 
-        private static Note ToNote(Group note, Group sharp)
+        private static Note ToNote(string note, string sharp)
         {
-            switch (note.Value)
+            switch (note)
             {
                 case "C":
-                    switch (sharp.Value)
+                    switch (sharp)
                     {
                         case "":
                             return Note.C;
                         case "#":
                             return Note.CSharp;
                         default:
-                            throw new ArgumentOutOfRangeException(nameof(sharp.Value), sharp.Value, null);
+                            throw new ArgumentOutOfRangeException(nameof(sharp), sharp, null);
                     }
                 case "D":
-                    switch (sharp.Value)
+                    switch (sharp)
                     {
                         case "":
                             return Note.D;
                         case "#":
                             return Note.DSharp;
                         default:
-                            throw new ArgumentOutOfRangeException(nameof(sharp.Value), sharp.Value, null);
+                            throw new ArgumentOutOfRangeException(nameof(sharp), sharp, null);
                     }
                 case "E":
-                    switch (sharp.Value)
+                    switch (sharp)
                     {
                         case "":
                             return Note.E;
                         default:
-                            throw new ArgumentOutOfRangeException(nameof(sharp.Value), sharp.Value, null);
+                            throw new ArgumentOutOfRangeException(nameof(sharp), sharp, null);
                     }
                 case "F":
-                    switch (sharp.Value)
+                    switch (sharp)
                     {
                         case "":
                             return Note.F;
                         case "#":
                             return Note.FSharp;
                         default:
-                            throw new ArgumentOutOfRangeException(nameof(sharp.Value), sharp.Value, null);
+                            throw new ArgumentOutOfRangeException(nameof(sharp), sharp, null);
                     }
                 case "G":
-                    switch (sharp.Value)
+                    switch (sharp)
                     {
                         case "":
                             return Note.G;
                         case "#":
                             return Note.GSharp;
                         default:
-                            throw new ArgumentOutOfRangeException(nameof(sharp.Value), sharp.Value, null);
+                            throw new ArgumentOutOfRangeException(nameof(sharp), sharp, null);
                     }
                 case "A":
-                    switch (sharp.Value)
+                    switch (sharp)
                     {
                         case "":
                             return Note.A;
                         case "#":
                             return Note.ASharp;
                         default:
-                            throw new ArgumentOutOfRangeException(nameof(sharp.Value), sharp.Value, null);
+                            throw new ArgumentOutOfRangeException(nameof(sharp), sharp, null);
                     }
                 case "B":
-                    switch (sharp.Value)
+                    switch (sharp)
                     {
                         case "":
                             return Note.B;
                         default:
-                            throw new ArgumentOutOfRangeException(nameof(sharp.Value), sharp.Value, null);
+                            throw new ArgumentOutOfRangeException(nameof(sharp), sharp, null);
                     }
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(note.Value), note.Value, null);
+                    throw new ArgumentOutOfRangeException(nameof(note), note, null);
             }
         }
 
 
-        private static Octave ToOctave(Group octave)
+        private static Octave ToOctave(string octave)
         {
-            switch (octave.Value)
+            switch (octave)
             {
                 case "0":
                     return Octave.Zeroth;
