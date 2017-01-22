@@ -7,10 +7,20 @@ namespace midi.tests.Rule
     internal class ToneRuleParserTests
     {
         [Test]
-        public void Test()
+        [TestCase("C0")]
+        [TestCase("C#0")]
+        [TestCase("C0,C#0")]
+        [TestCase("C0,C#0,D0")]
+        [TestCase("C0-C#0")]
+        [TestCase("C0-C#0,C#0-D0")]
+        [TestCase("C0-C#0,C#0-D0,D0-D#0")]
+        [TestCase("C0,C0-C#0")]
+        [TestCase("C0-C#0,C#0")]
+        [TestCase("C0,C0-C#0,C#0-D0")]
+        [TestCase("C0-C#0,C#0-D0,D0")]
+        public void Test(string expected)
         {
-            var rule = ToneRuleParser.FromString("C0");
-            Assert.That(rule.ToString(), Is.EqualTo("C0"));
+            Assert.That(ToneRuleParser.FromString(expected).ToString(), Is.EqualTo(expected));
         }
     }
 }

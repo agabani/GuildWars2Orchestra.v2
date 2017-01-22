@@ -7,7 +7,7 @@ namespace midi.Rule
 {
     public static class ToneRuleParser
     {
-        private static readonly Regex DeserializeRegex = new Regex("([-,]?)([A-G])(#)?(\\d+)");
+        private static readonly Regex DeserializeRegex = new Regex("([A-G])(#?)(\\d+)(?:(-)([A-G])(#?)(\\d+))?");
 
         public static IRule FromString(string @string)
         {
@@ -17,17 +17,29 @@ namespace midi.Rule
 
             foreach (Match match in matchCollection)
             {
-                var prefix = match.Groups[1];
-
-                var note = ToTone(match.Groups[2].Value, match.Groups[3].Value, match.Groups[4].Value);
-                rules.Add(new SingleRule(note));
+                rules.Add(ToRule(match.Groups));
             }
 
             return new AnyRule(rules);
         }
 
+        private static IRule ToRule(GroupCollection groups)
+        {
+            var tone1 = ToTone(groups[1].Value, groups[2].Value, groups[3].Value);
+            var tone2 = ToTone(groups[5].Value, groups[6].Value, groups[7].Value);
+
+            return tone2 == null
+                ? (IRule) new SingleRule(tone1)
+                : new RangeRule(tone1, tone2);
+        }
+
         private static Tone ToTone(string note, string sharp, string octave)
         {
+            if (note == "" && sharp == "" && octave == "")
+            {
+                return null;
+            }
+
             return new Tone(ToNote(note, sharp), ToOctave(octave));
         }
 
