@@ -12,7 +12,7 @@ namespace cli
         private static void Main(string[] args)
         {
             var sheet = InputFromJson();
-            //Info("data/Pokemon Red Version  Pokemon Blue Version - Pokemon Center.mid");
+            Info("data/prelude.mid");
             OutputToWave(sheet);
             //OutputToGuildwars(sheet);
         }
