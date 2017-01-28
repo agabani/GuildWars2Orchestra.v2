@@ -4,7 +4,7 @@ using midi.Convertor;
 using music;
 using NAudio.Midi;
 
-namespace midi.Info
+namespace midi.MetaData
 {
     public class TrackInfo
     {

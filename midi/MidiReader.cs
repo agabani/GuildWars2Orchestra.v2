@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using midi.Convertor;
-using midi.Info;
+using midi.MetaData;
 using music;
 using NAudio.Midi;
 

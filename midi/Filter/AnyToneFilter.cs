@@ -2,13 +2,13 @@
 using System.Linq;
 using music;
 
-namespace midi.Rule
+namespace midi.Filter
 {
-    internal class AnyRule : IRule
+    internal class AnyToneFilter : IToneFilter
     {
-        private readonly IReadOnlyCollection<IRule> _rules;
+        private readonly IReadOnlyCollection<IToneFilter> _rules;
 
-        public AnyRule(IReadOnlyCollection<IRule> rules)
+        public AnyToneFilter(IReadOnlyCollection<IToneFilter> rules)
         {
             _rules = rules;
         }

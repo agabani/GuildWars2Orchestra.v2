@@ -1,13 +1,13 @@
 ﻿using music;
 
-namespace midi.Rule
+namespace midi.Filter
 {
-    internal class RangeRule : IRule
+    internal class RangeToneFilter : IToneFilter
     {
         private readonly Tone _lowerTone;
         private readonly Tone _upperTone;
 
-        public RangeRule(Tone lowerTone, Tone upperTone)
+        public RangeToneFilter(Tone lowerTone, Tone upperTone)
         {
             _lowerTone = lowerTone;
             _upperTone = upperTone;

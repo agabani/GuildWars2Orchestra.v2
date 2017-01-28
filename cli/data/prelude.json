@@ -2,7 +2,7 @@
   "name": "Prelude",
   "path": "./data/prelude.mid",
   "speed": 1.0,
-  "tracks": {
+  "trackFilters": {
     "0": {
       "ignore": true
     },
@@ -19,13 +19,13 @@
       "ignore": true
     },
     "5": {
-      "ignore": false
+      "ignore": true
     },
     "6": {
-      "ignore": false
+      "ignore": true
     },
     "7": {
-      "ignore": false
+      "ignore": true
     },
     "8": {
       "ignore": true
@@ -43,7 +43,10 @@
       "ignore": true
     },
     "13": {
-      "ignore": false
+      "ignore": false,
+      "tone": [
+        "C0-C10"
+      ]  
     }
   }
 }

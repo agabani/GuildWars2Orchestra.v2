@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using NAudio.Midi;
 
-namespace midi.Info
+namespace midi.MetaData
 {
     public class MidiInfo
     {

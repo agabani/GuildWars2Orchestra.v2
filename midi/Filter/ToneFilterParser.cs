@@ -3,34 +3,34 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using music;
 
-namespace midi.Rule
+namespace midi.Filter
 {
-    public static class ToneRuleParser
+    public static class ToneFilterParser
     {
         private static readonly Regex DeserializeRegex = new Regex("([A-G])(#?)(\\d+)(?:(-)([A-G])(#?)(\\d+))?");
 
-        public static IRule FromString(string @string)
+        public static IToneFilter FromString(string @string)
         {
             var matchCollection = DeserializeRegex.Matches(@string);
 
-            var rules = new List<IRule>();
+            var rules = new List<IToneFilter>();
 
             foreach (Match match in matchCollection)
             {
                 rules.Add(ToRule(match.Groups));
             }
 
-            return new AnyRule(rules);
+            return new AnyToneFilter(rules);
         }
 
-        private static IRule ToRule(GroupCollection groups)
+        private static IToneFilter ToRule(GroupCollection groups)
         {
             var tone1 = ToTone(groups[1].Value, groups[2].Value, groups[3].Value);
             var tone2 = ToTone(groups[5].Value, groups[6].Value, groups[7].Value);
 
             return tone2 == null
-                ? (IRule) new SingleRule(tone1)
-                : new RangeRule(tone1, tone2);
+                ? (IToneFilter) new SingleToneFilter(tone1)
+                : new RangeToneFilter(tone1, tone2);
         }
 
         private static Tone ToTone(string note, string sharp, string octave)

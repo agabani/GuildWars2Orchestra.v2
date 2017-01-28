@@ -1,4 +1,4 @@
-﻿using midi.Rule;
+﻿using midi.Filter;
 using NUnit.Framework;
 
 namespace midi.tests.Rule
@@ -20,7 +20,7 @@ namespace midi.tests.Rule
         [TestCase("C0-C#0,C#0-D0,D0")]
         public void Test(string expected)
         {
-            Assert.That(ToneRuleParser.FromString(expected).ToString(), Is.EqualTo(expected));
+            Assert.That(ToneFilterParser.FromString(expected).ToString(), Is.EqualTo(expected));
         }
     }
 }

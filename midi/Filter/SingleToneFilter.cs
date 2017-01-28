@@ -1,12 +1,12 @@
 ﻿using music;
 
-namespace midi.Rule
+namespace midi.Filter
 {
-    internal class SingleRule : IRule
+    internal class SingleToneFilter : IToneFilter
     {
         private readonly Tone _tone;
 
-        public SingleRule(Tone tone)
+        public SingleToneFilter(Tone tone)
         {
             _tone = tone;
         }

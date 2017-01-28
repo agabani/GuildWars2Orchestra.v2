@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using midi.Convertor;
-using midi.Info;
+using midi.MetaData;
 using music;
 using NAudio.Midi;
 using Newtonsoft.Json;
@@ -13,7 +13,7 @@ namespace midi
     {
         public Sheet Read(string path)
         {
-            var profile = ReadProfile(path);
+            var profile = new Profile(ReadJsonProfile(path));
 
             var midiFile = new MidiFile(profile.Path);
             var midiInfo = new MidiInfo(profile.Path);
@@ -21,29 +21,45 @@ namespace midi
             return new Sheet
             {
                 Tempo = midiInfo.Tempo,
-                Tokens = Notes(midiFile.Events, midiInfo.Tempo, midiFile.DeltaTicksPerQuarterNote)
+                Tokens = Notes(midiFile.Events, midiInfo.Tempo, midiFile.DeltaTicksPerQuarterNote, profile.TrackFilters)
             };
         }
 
-        private static Profile ReadProfile(string path)
+        private static JsonProfile ReadJsonProfile(string path)
         {
-            return JsonConvert.DeserializeObject<Profile>(File.ReadAllText(path));
+            return JsonConvert.DeserializeObject<JsonProfile>(File.ReadAllText(path));
         }
 
-        private static Dictionary<int, Token[]> Notes(MidiEventCollection midiEventCollection, double tempo, int deltaTicksPerQuarterNote)
+        private static Dictionary<int, Token[]> Notes(MidiEventCollection midiEventCollection, double tempo, int deltaTicksPerQuarterNote, Dictionary<int, TrackFilter> tracks)
         {
             var tokens = new Dictionary<int, Token[]>();
 
             for (var track = 0; track < midiEventCollection.Tracks; track++)
             {
-                tokens.Add(track, midiEventCollection[track]
+                var array = midiEventCollection[track]
                     .OfType<NoteOnEvent>()
                     .Where(@event => @event.Velocity > 0)
                     .Select(@event => TokenConvertor.Convert(@event, tempo, deltaTicksPerQuarterNote))
-                    .ToArray());
+                    .Where(token => CanPlay(token, tracks[track]))
+                    .ToArray();
+
+                tokens.Add(track, array);
             }
 
             return tokens;
+        }
+
+        private static bool CanPlay(Token token, TrackFilter trackFilter)
+        {
+            if (trackFilter.Ignore)
+            {
+                return false;
+            }
+            if (trackFilter.ToneFilter.IsAllowed(token.Tone))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
