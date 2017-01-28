@@ -18,7 +18,6 @@ namespace guildwars
         public void Play(Sheet sheet)
         {
             var enumerable = sheet.Tokens
-                .Where(pair => ShouldIncludeTrack(sheet, pair))
                 .SelectMany(pair => pair.Value)
                 .Where(token => IsToneInRange(token.Tone))
                 .OrderBy(token => token.AbsoluteTime)
@@ -28,12 +27,9 @@ namespace guildwars
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-
-            var speed = sheet.Profile?.Speed ?? 1.0;
-
             for (var index = 0; index < enumerable.Length;)
             {
-                if (stopwatch.ElapsedMilliseconds > enumerable[index].AbsoluteTime.TotalMilliseconds/speed)
+                if (stopwatch.ElapsedMilliseconds > enumerable[index].AbsoluteTime.TotalMilliseconds)
                 {
                     _eventQueue.Queue(enumerable[index]);
                     index++;
@@ -41,13 +37,6 @@ namespace guildwars
 
                 Thread.Sleep(1);
             }
-        }
-
-        private bool ShouldIncludeTrack(Sheet sheet, KeyValuePair<int, Token[]> track)
-        {
-            return sheet.Profile == null
-                   || !sheet.Profile.Tracks.ContainsKey(track.Key)
-                   || !sheet.Profile.Tracks[track.Key].Ignore;
         }
 
         private bool IsToneInRange(Tone tone)

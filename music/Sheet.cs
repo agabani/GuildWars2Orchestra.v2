@@ -6,6 +6,5 @@ namespace music
     {
         public double Tempo { get; set; }
         public Dictionary<int, Token[]> Tokens { get; set; }
-        public Profile Profile { get; set; }
     }
 }

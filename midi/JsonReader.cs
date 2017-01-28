@@ -20,7 +20,6 @@ namespace midi
 
             return new Sheet
             {
-                Profile = profile,
                 Tempo = midiInfo.Tempo,
                 Tokens = Notes(midiFile.Events, midiInfo.Tempo, midiFile.DeltaTicksPerQuarterNote)
             };
