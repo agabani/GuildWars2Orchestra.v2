@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using guildwars;
-using midi;
 using midi.MetaData;
 using midi.Reader;
 using music;
@@ -13,9 +12,9 @@ namespace cli
         private static void Main(string[] args)
         {
             var sheet = InputFromJson();
-            Info("data/prelude.mid");
-            OutputToWave(sheet);
-            //OutputToGuildwars(sheet);
+            Info("data/Pokemon Red Version  Pokemon Blue Version - The SS Anne.mid");
+            //OutputToWave(sheet);
+            OutputToGuildwars(sheet);
         }
 
         private static Sheet InputFromHardcode()
@@ -72,7 +71,7 @@ namespace cli
 
         private static Sheet InputFromJson()
         {
-            return new JsonReader().Read("data/prelude.json");
+            return new JsonReader().Read("data/Pokemon Red Version  Pokemon Blue Version - The SS Anne.json");
         }
 
         private static void Info(string path)

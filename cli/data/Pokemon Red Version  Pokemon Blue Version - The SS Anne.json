@@ -1,0 +1,16 @@
+﻿{
+  "name": "Prelude",
+  "path": "./data/Pokemon Red Version  Pokemon Blue Version - The SS Anne.mid",
+  "speed": 1.0,
+  "trackFilters": {
+    "0": {
+      "ignore": true
+    },
+    "1": {
+      "ignore": false,
+      "tone": [
+        "F5-E6"
+      ]
+    }
+  }
+}

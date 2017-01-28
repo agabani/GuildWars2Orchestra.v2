@@ -49,6 +49,9 @@
     <None Include="data\Pokemon Red Version  Pokemon Blue Version - Pokemon Center.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="data\Pokemon Red Version  Pokemon Blue Version - The SS Anne.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="data\prelude.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

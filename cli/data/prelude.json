@@ -4,37 +4,37 @@
   "speed": 1.0,
   "trackFilters": {
     "0": {
-      "ignore": true
+      "ignore": false
     },
     "1": {
-      "ignore": true
+      "ignore": false
     },
     "2": {
-      "ignore": true
+      "ignore": false
     },
     "3": {
-      "ignore": true
+      "ignore": false
     },
     "4": {
-      "ignore": true
+      "ignore": false
     },
     "5": {
-      "ignore": true
+      "ignore": false
     },
     "6": {
-      "ignore": true
+      "ignore": false
     },
     "7": {
-      "ignore": true
+      "ignore": false
     },
     "8": {
-      "ignore": true
+      "ignore": false
     },
     "9": {
-      "ignore": true
+      "ignore": false
     },
     "10": {
-      "ignore": true
+      "ignore": false
     },
     "11": {
       "ignore": true
@@ -43,7 +43,7 @@
       "ignore": true
     },
     "13": {
-      "ignore": false,
+      "ignore": true,
       "tone": [
         "C0-C10"
       ]  
