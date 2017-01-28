@@ -47,9 +47,9 @@
     <Compile Include="Filter\ToneFilterParser.cs" />
     <Compile Include="MetaData\JsonTrackFilter.cs" />
     <Compile Include="MetaData\MidiInfo.cs" />
-    <Compile Include="JsonReader.cs" />
+    <Compile Include="Reader\JsonReader.cs" />
     <Compile Include="MetaData\TrackFilter.cs" />
-    <Compile Include="MidiReader.cs" />
+    <Compile Include="Reader\MidiReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Convertor\TokenConvertor.cs" />
     <Compile Include="Convertor\ToneConvertor.cs" />

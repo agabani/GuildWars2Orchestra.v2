@@ -7,7 +7,7 @@ using music;
 using NAudio.Midi;
 using Newtonsoft.Json;
 
-namespace midi
+namespace midi.Reader
 {
     public class JsonReader
     {
@@ -20,8 +20,8 @@ namespace midi
 
             return new Sheet
             {
-                Tempo = midiInfo.Tempo,
-                Tokens = Notes(midiFile.Events, midiInfo.Tempo, midiFile.DeltaTicksPerQuarterNote, profile.TrackFilters)
+                Tempo = midiInfo.Tempo * profile.Speed,
+                Tokens = Notes(midiFile.Events, midiInfo.Tempo * profile.Speed, midiFile.DeltaTicksPerQuarterNote, profile)
             };
         }
 
@@ -30,7 +30,7 @@ namespace midi
             return JsonConvert.DeserializeObject<JsonProfile>(File.ReadAllText(path));
         }
 
-        private static Dictionary<int, Token[]> Notes(MidiEventCollection midiEventCollection, double tempo, int deltaTicksPerQuarterNote, Dictionary<int, TrackFilter> tracks)
+        private static Dictionary<int, Token[]> Notes(MidiEventCollection midiEventCollection, double tempo, int deltaTicksPerQuarterNote, Profile profile)
         {
             var tokens = new Dictionary<int, Token[]>();
 
@@ -40,7 +40,7 @@ namespace midi
                     .OfType<NoteOnEvent>()
                     .Where(@event => @event.Velocity > 0)
                     .Select(@event => TokenConvertor.Convert(@event, tempo, deltaTicksPerQuarterNote))
-                    .Where(token => CanPlay(token, tracks[track]))
+                    .Where(token => CanPlay(token, profile.TrackFilters[track]))
                     .ToArray();
 
                 tokens.Add(track, array);
@@ -51,15 +51,7 @@ namespace midi
 
         private static bool CanPlay(Token token, TrackFilter trackFilter)
         {
-            if (trackFilter.Ignore)
-            {
-                return false;
-            }
-            if (trackFilter.ToneFilter.IsAllowed(token.Tone))
-            {
-                return true;
-            }
-            return false;
+            return !trackFilter.Ignore && trackFilter.ToneFilter.IsAllowed(token.Tone);
         }
     }
 }

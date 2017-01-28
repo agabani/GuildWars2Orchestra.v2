@@ -13,13 +13,13 @@ namespace midi.MetaData
     public class Profile
     {
         public string Path { get; set; }
-        public double? Speed { get; set; }
+        public double Speed { get; set; }
         public Dictionary<int, TrackFilter> TrackFilters { get; set; }
 
         public Profile(JsonProfile jsonProfile)
         {
             Path = jsonProfile.Path;
-            Speed = jsonProfile.Speed;
+            Speed = jsonProfile.Speed ?? 1;
 
             TrackFilters = new Dictionary<int, TrackFilter>();
             foreach (var jsonTrackFilter in jsonProfile.TrackFilters)

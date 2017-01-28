@@ -5,7 +5,7 @@ using midi.MetaData;
 using music;
 using NAudio.Midi;
 
-namespace midi
+namespace midi.Reader
 {
     public class MidiReader
     {

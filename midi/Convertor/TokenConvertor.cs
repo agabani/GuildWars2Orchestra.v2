@@ -6,13 +6,13 @@ namespace midi.Convertor
 {
     internal class TokenConvertor
     {
-        internal static Token Convert(NoteOnEvent @event, double tempo, int deltaTicksPerQuarterNote)
+        internal static Token Convert(NoteOnEvent @event, double tempo, int deltaTicksPerQuarterNote, double speed = 1.0)
         {
             return new Token
             {
                 Length = LengthConvertor.Convert(@event, tempo, deltaTicksPerQuarterNote),
                 Tone = ToneConvertor.Convert(@event),
-                AbsoluteTime = TimeSpan.FromMilliseconds(ToMilliseconds(@event.AbsoluteTime, tempo, deltaTicksPerQuarterNote))
+                AbsoluteTime = TimeSpan.FromMilliseconds(ToMilliseconds(@event.AbsoluteTime, tempo, deltaTicksPerQuarterNote) / speed)
             };
         }
 
